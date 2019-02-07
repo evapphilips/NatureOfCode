@@ -2,7 +2,7 @@
 
 
 Week 1:
-Part 1 - https://editor.p5js.org/evapphilips/sketches/TlNy-5mUA
+[Part 1](https://editor.p5js.org/evapphilips/sketches/TlNy-5mUA)
 Part 2 - https://editor.p5js.org/evapphilips/sketches/YVhJWUTwh
 
 Week 2:
