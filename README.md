@@ -11,4 +11,4 @@ Week 2:
 
 Week 3:
 - [Part 1](https://evapphilips.github.io/NatureOfCode/week3/w3_pt1_spiral/)
-- [Part 2](https://evapphilips.github.io/NatureOfCode/week3/w3_pt2_OscillatingTriangle/)
+- [Part 2](https://evapphilips.github.io/NatureOfCode/week3/w3_pt2_oscilatingTriangle/)
