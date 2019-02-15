@@ -8,3 +8,6 @@ Week 1:
 Week 2:
 - [Part 1](https://evapphilips.github.io/NatureOfCode/week2/w2_pt1_vectors&forces/)
 - [Part 2](https://evapphilips.github.io/NatureOfCode/week2/w2_pt2_repelField/)
+
+Week 3:
+- [Part 1](https://evapphilips.github.io/NatureOfCode/week3/w3_pt1_spiral/)
