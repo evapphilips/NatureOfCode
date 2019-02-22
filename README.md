@@ -12,3 +12,7 @@ Week 2:
 Week 3:
 - [Part 1](https://evapphilips.github.io/NatureOfCode/week3/w3_pt1_spiral/)
 - [Part 2](https://evapphilips.github.io/NatureOfCode/week3/w3_pt2_oscilatingTriangle/)
+
+Week 4:
+- [Part 1](https://evapphilips.github.io/NatureOfCode/week4/w4_pt1_particleSystem/)
+- [Part 2](https://evapphilips.github.io/NatureOfCode/week4/w4_pt2_rainCloudSystem/)
