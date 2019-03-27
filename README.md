@@ -17,9 +17,11 @@ Week 4:
 - [Part 1](https://evapphilips.github.io/NatureOfCode/week4/w4_pt1_particleSystem/)
 - [Part 2](https://evapphilips.github.io/NatureOfCode/week4/w4_pt2_rainCloudSystem/)
 
-Week 5&6:
+Week 5&6&7:
 - [Part 1, flocking practice](https://evapphilips.github.io/NatureOfCode/week5/flockingPractice/)
 - [Part 2, flee the nose](https://evapphilips.github.io/NatureOfCode/week5/flockingNose/)
 - [Part 3, flow field](https://evapphilips.github.io/NatureOfCode/week6/flowField/)
 - [Part 4, complex attractor](https://evapphilips.github.io/NatureOfCode/week6/complexAttractor/)
 
+Week 8:
+- [Part 1, genetic algorithm](https://evapphilips.github.io/NatureOfCode/week8/w8_geneticAlgoriths/)
