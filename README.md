@@ -25,3 +25,6 @@ Week 5&6&7:
 
 Week 8:
 - [Part 1, genetic algorithm](https://evapphilips.github.io/NatureOfCode/week8/w8_geneticAlgoriths/)
+
+Week 10:
+- [Part 1, final project test](https://evapphilips.github.io/NatureOfCode/week10/finalProjectTest/)
