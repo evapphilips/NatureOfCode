@@ -1,8 +1,9 @@
 class FrozenLake{
-    constructor(envSize){
+    constructor(envSize, customMap){
         this.size = [envSize, envSize];
         //this.map = [["S", "H", "H", "H"], ["F", "F", "F", "F"], ["H", "H", "H", "F"], ["H", "H", "H", "G"]];
-        this.map = [["S", "H", "H", "H", "H"], ["F", "F", "F", "F", "F"], ["H", "H", "H", "H", "F"], ["H", "H", "H", "G", "F"], ["H", "H", "H", "F", "H"]];
+        //this.map = [["S", "H", "H", "H", "H"], ["F", "F", "F", "F", "F"], ["H", "H", "H", "H", "F"], ["H", "H", "H", "G", "F"], ["H", "H", "H", "F", "H"]];
+        this.map = customMap;
         //this.environment = tf.tensor2d(this.map, this.size, 'string')
         this.numTilesAcross = this.size[0] // get the demensions of the table
         //this.pos = createVector((width/this.numTilesAcross)/2, (height/this.numTilesAcross)/2); // start the agent at the center of the start tile

@@ -13,31 +13,86 @@ let frozenLake;
 
 let qtable;
 
+let customLake;
+let customMap;
+
+let makeCustomButton;
+let submitCustomButton;
+let runButton;
+
 function setup(){
     // setup canvas
     createCanvas(400, 400);
     background(255);
+    
+    makeCustomButton = createButton('Make a custom environment');
+    makeCustomButton.position(0, height);
+    makeCustomButton.mousePressed(makeCustomPressed);
 
-    // setup q table
-    qtable = new QTable(5);
+    submitCustomButton = createButton('Submit a custom environment');
+    submitCustomButton.position(0, makeCustomButton.y + makeCustomButton.height);
+    submitCustomButton.mousePressed(submitCustomPressed);
 
+    runButton = createButton('Run Agent');
+    runButton.position(0, submitCustomButton.y + submitCustomButton.height);
+    runButton.mousePressed(runPressed)
+
+    
+
+
+    // make q table
+    // qtable = new QTable(5); 
+
+    // make and show custom lake
+    // customLake = new CustomEnv(5);
+    // customLake.showEnv();
 
 }
 
 function draw(){
-    if(keyIsPressed){
-        // if t is pressed, train
-        if(key == 't'){
-            qtable.train();
-            keyIsPressed = false;
-            console.log("Trained")
-        }
-        // if r is pressed, run
-        if(key == 'r'){
-            qtable.run();
-            keyIsPressed = false;
-        }
-    }
+    // if(keyIsPressed){    
+    //     // if t is pressed, train
+    //     if(key == 't'){
+    //         qtable.train();
+    //         keyIsPressed = false;
+    //         console.log("Trained")
+    //     }
+    //     // if r is pressed, run
+    //     if(key == 'r'){
+    //         qtable.run();
+    //         keyIsPressed = false;
+    //     }
+    // }
 }
+
+function mousePressed(){
+    customMap = customLake.changeEnv(mouseX, mouseY);
+    customLake.showEnv();
+    //console.log(customMap);
+}
+
+
+function makeCustomPressed(){
+    // make and show custom lake
+    customLake = new CustomEnv(5);
+    customLake.showEnv();
+    //makeCustomButton.hide();
+}
+
+function submitCustomPressed(){
+    //console.log(customMap)
+    // make q table
+    qtable = new QTable(5, customMap); 
+    // train q table
+    console.log("Training")
+    qtable.train();
+    console.log("Trained")
+}
+
+function runPressed(){
+    console.log("Running!")
+    qtable.run();
+}
+
 
 

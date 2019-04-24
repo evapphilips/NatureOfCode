@@ -1,5 +1,5 @@
 class QTable{
-    constructor(envSize){
+    constructor(envSize, customMap){
         this.numStates = envSize * envSize;
         this.numActions = 4; // up, down, left, right
 
@@ -15,7 +15,7 @@ class QTable{
         // this.qTable = tf.tensor2d(this.qtArray, [this.numStates, envSize], 'int32');
 
         // initialize the environment
-        this.env = new FrozenLake(envSize);
+        this.env = new FrozenLake(envSize, customMap);
         this.env.showEnv();
         // this.env.stepAgent(3);
         // this.env.stepAgent(2);
