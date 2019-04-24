@@ -29,5 +29,5 @@ Week 8:
 Week 10:
 - [Part 1, final project test](https://evapphilips.github.io/NatureOfCode/week10/finalProjectTest/)
 
-Week 11:
-- [Part 1, final project simple QTable implementation](https://evapphilips.github.io/NatureOfCode/finalProject/simpleQLearning_withTable/)
+Week 11-13:
+- [Final Project](https://evapphilips.github.io/NatureOfCode/finalProject/simpleQLearning_withTable/)
