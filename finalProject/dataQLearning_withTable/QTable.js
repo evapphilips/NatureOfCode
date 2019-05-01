@@ -28,14 +28,16 @@ class QTable{
         
         // for logging rewards at each training step
         this.rewardList = [];
+
+
+        this.numTimes = 0;
+        this.successful = true;
     }
 
-    train(){
+    train(numEp){
         // variables for training
-        let numEpisodes = 1000;
-        
-        
-        
+        //let numEpisodes = 1000;
+        let numEpisodes = numEp
 
         // train for a certain numer of episodes
         for(let i=0; i<numEpisodes; i++){
@@ -81,16 +83,32 @@ class QTable{
             this.rewardList.push(rAll);
             //console.log(this.rewardList)  
         }
+
+
         // show number of times completed
         let sum = 0;
         for(let i=0; i< this.rewardList.length; i++){
                 sum += this.rewardList[i]
         }
         //console.log("Number of times completed: ", sum)
+
+        // make count how many times it has trained
+        this.numTimes += 1;
+        console.log(this.numTimes)
+        // if the amount of time it has trained has exeeded 60, cancel
+        if(this.numTimes > 2000){
+            console.log("not possible")
+            this.successful = false;
+            return 
+        }
+
         // keep training until it learns the map
         if(sum<500){
-            this.train();
+            this.train(numEp);
         }
+        // if(sum<2){
+        //     this.train(numEp);
+        // }
         
         //console.log("Episodes to run successfully: ", this.rewardList.length) 
 

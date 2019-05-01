@@ -1,8 +1,21 @@
 class CustomEnv{
     constructor(envSize){
         this.numTilesAcross = envSize;
-        this.map = [["S", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "G"]];
-
+        // 5 by 5
+        //this.map = [["S", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "F"], ["F", "F", "F", "F", "G"]];
+        // any size
+        this.map = [];
+        for(let i=0; i<this.numTilesAcross; i++){
+            let row = []
+                for(let j=0; j<this.numTilesAcross; j++){
+                    row.push("F")    
+                }
+                this.map.push(row)        
+        }
+        // set the start and goal
+        this.map[0][0] = "S";
+        this.map[this.numTilesAcross-1][this.numTilesAcross-1] = "G";
+        console.log(this.map);
     }
 
     changeEnv(mx, my){

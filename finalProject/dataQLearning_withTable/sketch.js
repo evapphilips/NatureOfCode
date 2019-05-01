@@ -12,11 +12,13 @@ let useDataButton;
 let menuButton;
 let customSubmitButton;
 let customRunButton;
-let customStepButton;
-let customFullButton;
+// let customStepButton;
+//let customFullButton;
+let customTrainButton;
 let customSelect = false;
 let trainingStatus;
 let gymDataButton;
+// let episodesSlider;
 
 // custom lake variables
 let customLake;
@@ -30,10 +32,18 @@ function setup(){
     stroke(0);
     fill(255);
     rect(0, 0, width-1, height-1);
-    let topOfCanvas = 90;
+    let topOfCanvas = 100;
 
     // setup instructions
     instructions = select('#instructions');
+
+    // setup about section
+    textAlign(CENTER);
+    textSize(12);
+    fill(0);
+    noStroke();
+    //text("hi\nhello", 50, 50)
+    text("Q-learning is a reinforcement learning algorithm which trains an agent\nto take an action based on the environment it is in. This example uses\na simple q-learning implementation called The Frozen Lake Example.\nThe algorithm will use a grid environment (map) which consist of safe\nand unsafe tiles. The agent will try to move through the map starting at\nthe top left and aiming for the goal tile on the bottom right. While training\nthe agent will repeatedly try to move through the map.  If the agent\nreaches the goal it will get a point. If it falls on an unsafe tile it will get\nno points.  Eventually the agent will train itself to successfully complete\nthe map every time.", width/2, 60)
 
     // setup menu buttons
     makeCustomButton = createButton("Make a Custom Map");
@@ -49,26 +59,47 @@ function setup(){
     menuButton.hide();  // start with menu hidden
     menuButton.mousePressed(menuButtonPressed);
     customSubmitButton = createButton("submit");
+    customSubmitButton.size(100, 30);
+    customSubmitButton.style('background-color', 'gray')
+    customSubmitButton.style('border-style', 'none')
+    customSubmitButton.style('font-size', '18pt')
+    customSubmitButton.style('border-radius', '4px')
     customSubmitButton.position(windowWidth/2 - customSubmitButton.width/2, height + customSubmitButton.height + topOfCanvas);
     customSubmitButton.hide(); // start with submit hidden
     customSubmitButton.mousePressed(customSubmitButtonPressed)
 
     // setup custom run screen
     customRunButton = createButton("run");
+    customRunButton.size(100, 30);
+    customRunButton.style('background-color', 'gray')
+    customRunButton.style('border-style', 'none')
+    customRunButton.style('font-size', '18pt')
+    customRunButton.style('border-radius', '4px')
     customRunButton.position(windowWidth/2 - customRunButton.width/2, height + customRunButton.height + topOfCanvas);
     customRunButton.hide(); // start hidden
     customRunButton.mousePressed(customRunButtonPressed)
-    customStepButton = createButton("step train");
-    customStepButton.position(windowWidth/2 - customRunButton.width - customStepButton.width, height + customStepButton.height + topOfCanvas )
-    customStepButton.hide(); // start hidden
-    customStepButton.mousePressed(customStepButtonPressed)
-    customFullButton = createButton("fully train");
-    customFullButton.position(windowWidth/2 + customFullButton.width/2, height + customFullButton.height + topOfCanvas )
-    customFullButton.hide(); // start hidden
-    customFullButton.mousePressed(customFullButtonPressed)
-    trainingStatus = createP("status: needs training...");
-    trainingStatus.position(windowWidth/2 - width/2 + 2*menuButton.width,topOfCanvas)
+    // customStepButton = createButton("step train");
+    // customStepButton.position(windowWidth/2 - customRunButton.width - customStepButton.width, height + customStepButton.height + topOfCanvas )
+    // customStepButton.hide(); // start hidden
+    // customStepButton.mousePressed(customStepButtonPressed)
+    customTrainButton = createButton("train");
+    customTrainButton.size(100, 30);
+    customTrainButton.style('background-color', 'gray')
+    customTrainButton.style('border-style', 'none')
+    customTrainButton.style('font-size', '18pt')
+    customTrainButton.style('border-radius', '4px')
+    customTrainButton.position(windowWidth/2 - customTrainButton.width/2, height + customTrainButton.height + topOfCanvas)
+    customTrainButton.hide(); // start hidden
+    customTrainButton.mousePressed(customTrainButtonPressed)
+    trainingStatus = createButton("needs training...");
+    trainingStatus.style('background-color', 'rgb(199, 130, 131)');
+    trainingStatus.style('border-style', 'none')
+    trainingStatus.style('font-size', '12pt')
+    // trainingStatus.position(windowWidth/2 - 190, topOfCanvas + trainingStatus.height - 10);
+    trainingStatus.position(windowWidth/2 - 190, windowHeight/2 - 150)
     trainingStatus.hide();
+    // episodesSlider = createSlider(10, 1000, 1000)
+
 
     // setup data map selection screen
     gymDataButton = createButton("my gym data");
@@ -84,7 +115,7 @@ function makeCustomButtonPressed(){
     makeCustomButton.hide();
     useDataButton.hide();
     // change instructions
-    instructions.html('Click on a tile to make a custom map. When you are ready, click submit.');
+    instructions.html('Click on a tile to make a custom map. Dark circles are dead spots and light spots are safe.<br>When you are ready, click submit.');
     // show the back menu button and the submit button
     menuButton.show();
     customSubmitButton.show();
@@ -100,6 +131,7 @@ function makeCustomButtonPressed(){
 
 // when "use a data map" is pressed, go to the data screen
 function useDataButtonPressed(){
+    background(255);
     // hide the menu buttons
     makeCustomButton.hide();
     useDataButton.hide();
@@ -111,17 +143,20 @@ function useDataButtonPressed(){
 
 // when "menu" is pressed, go to the menu screen
 function menuButtonPressed(){
+
     // change instructions
     instructions.html('select a map type...')
     // hide the none menu buttons
     menuButton.hide();
     customSubmitButton.hide();
     customRunButton.hide();
-    customStepButton.hide();
-    customFullButton.hide();
+    customTrainButton.hide();
     trainingStatus.hide();
     customSelect = false;
-    customLake.hideEnv(); // hide the previous page content
+    if(customLake){
+        customLake.hideEnv(); // hide the previous page content
+    }
+    
     gymDataButton.hide();
     //draw background
     stroke(0);
@@ -142,11 +177,11 @@ function customSubmitButtonPressed(){
     // hide the submit button
     customSubmitButton.hide();
     // change instructions
-    instructions.html('step training will train the model in stages, full training will train the model automatically until the agent can move through the map successfully')
+    instructions.html('Click the train button to train the model with the Q-learning Algorithm')
     // show the training/run buttons
-    customRunButton.show();
-    customStepButton.show();
-    customFullButton.show();
+    // customRunButton.show();
+    // customStepButton.show();
+    customTrainButton.show();
     trainingStatus.show();
 
     // make custom select false
@@ -154,7 +189,8 @@ function customSubmitButtonPressed(){
     customLake.hideEnv(); // hide the previous page content
 
     // make a q table with the custom map
-    qtable = new QTable(5, customMap); 
+    //qtable = new QTable(5, customMap); 
+    qtable = new QTable(customMap[0].length, customMap);
 }
 
 function mousePressed(){
@@ -165,25 +201,39 @@ function mousePressed(){
     }    
 }
 
-// when the fully train button is pressed, train the model 
-function customFullButtonPressed(){
+// when the train button is pressed, train the model 
+function customTrainButtonPressed(){
+    
+    customTrainButton.hide();
+    
     // train q table till it runs successfully
     console.log("Training")
-    trainingStatus.html('status: training, please wait....')
-    qtable.train();
+    trainingStatus.html("please wait, training...")
+    qtable.train(1000);
+
+
+    if(qtable.successful == false){
+        console.log("hi")
+        trainingStatus.html("This map is too complicated or<br>not possible for the agent to complete")
+        customRunButton.hide();
+    }else{
+        trainingStatus.hide();
+        customRunButton.show();
+    }
     console.log("Trained")
-    trainingStatus.html('status: trained, try running the agent...')
+
+    
 }
 
-// when the step train button is pressed, train the model incrementally
-function customStepButtonPressed(){
-    // train q table till it runs successfully
-    console.log("Training")
-    trainingStatus.html('status: training, please wait....')
-    qtable.train();
-    console.log("Trained")
-    trainingStatus.html('status: trained, try running the agent...')
-}
+// // when the step train button is pressed, train the model incrementally
+// function customStepButtonPressed(){
+//     // train q table till it runs successfully
+//     console.log("Training")
+//     trainingStatus.html('status: training, please wait....')
+//     qtable.train(1000);
+//     console.log("Trained")
+//     trainingStatus.html('status: trained, try running the agent...')
+// }
 
 // when the run button is pressed, run the agent
 function customRunButtonPressed(){
@@ -195,6 +245,17 @@ function customRunButtonPressed(){
 function gymDataButtonPressed(){
     // delete border
     background(255);
+
+    instructions.html("This is a map of my gym data for five weeks.  The dark spots are days I did not go to the gym.<br>The light spots are the days I went to the gym. Train the agent to navigate my data.")
+
+    // show calendar
+    let calStart = 83;
+    text("M", calStart, 20);
+    text("T", 2*calStart, 20);
+    text("W", 3*calStart, 20);
+    text("Th", 4*calStart, 20);
+    text("F", 5*calStart, 20);
+
     // add the gym data to this custom map
     customMap = [["S", "H", "H", "F", "H"], ["F", "F", "H", "F", "H"], ["F", "H", "F", "F", "F"], ["F", "H", "F", "H", "H"], ["F", "F", "F", "F", "G"]]
     //customMap = [["S", "H", "H", "H", "H"], ["F", "F", "F", "F", "F"], ["H", "H", "H", "H", "F"], ["H", "H", "H", "G", "F"], ["H", "H", "H", "F", "H"]];
@@ -203,9 +264,15 @@ function gymDataButtonPressed(){
     // hide data buttons
     gymDataButton.hide();
     // show the training/run buttons
-    customRunButton.show();
-    customStepButton.show();
-    customFullButton.show();
+    // customRunButton.show();
+    // customStepButton.show();
+    // customFullButton.show();
+    // trainingStatus.show();
+    customTrainButton.show();
+    trainingStatus.html("needs training...");
     trainingStatus.show();
+
+    // // make custom select false
+    // customSelect = false;
     
 }
