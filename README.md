@@ -31,4 +31,4 @@ Week 10:
 
 Week 11-13:
 - [Final Project Prototype](https://evapphilips.github.io/NatureOfCode/finalProject/simpleQLearning_withTable/)
-- [Final Project](https://evapphilips.github.io/NatureOfCode/finalProject/dataQLearning_withTable/)
+- [Final Project](https://evapphilips.github.io/NatureOfCode/finalProject/dataQLearning_withTable_final/)
